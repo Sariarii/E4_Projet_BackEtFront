@@ -81,7 +81,7 @@ export const createTasksRoutes = () => {
           next
         ) => {
           try {
-              await DbTask.deleteOne(req.body.id)
+              await DbTask.deleteOne({_id:req.params.id})
               res.sendStatus(StatusCodes.OK)
           } catch (error) {
               console.log(error);

@@ -25,7 +25,7 @@ export const createAuthRoutes = () => {
       res: express.Response,
       next: express.NextFunction
     ) => {
-      const { email, password, confirmPassword, } : SignupData = req.body
+      const { email, password, confirmPassword } : SignupData = req.body
       if (!email || !password || password !== confirmPassword) {
         next(createHttpError(StatusCodes.BAD_REQUEST))
         return

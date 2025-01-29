@@ -81,7 +81,7 @@ export const createSprintsRoutes = () => {
           next
         ) => {
           try {
-              await DbSprint.deleteOne(req.body.id)
+              await DbSprint.deleteOne({_id:req.params.id})
               res.sendStatus(StatusCodes.OK)
           } catch (error) {
               console.log(error);

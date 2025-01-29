@@ -12,9 +12,11 @@ import errorHandler from "errorhandler"
 import { createUserRoutes } from './users/router'
 import helmet from 'helmet'
 import lusca from 'lusca'
+import cors from 'cors'
 
 export const createApp = () => {
   const app = express()
+  app.use(cors("http://localhost:3000" as any))
   app.use(helmet())
   app.use(lusca())
 
@@ -24,12 +26,12 @@ export const createApp = () => {
   app.use(cookieParser(process.env.COOKIE_SECRET!))
 
   app.use(createAuthRoutes())
-  app.use('/projects',checkAccessToken,createProjectRoutes())
-  app.use('/stories',checkAccessToken,createStoriesRoutes())
-  app.use('/sprints',checkAccessToken,createSprintsRoutes())
-  app.use('/tasks',checkAccessToken,createTasksRoutes())
-  app.use('/users',checkAccessToken,createUserRoutes())
-  app.get('/', checkAccessToken, (req: express.Request, res: express.Response) => {
+  app.use('/projects',createProjectRoutes())
+  app.use('/stories',createStoriesRoutes())
+  app.use('/sprints',createSprintsRoutes())
+  app.use('/tasks',createTasksRoutes())
+  app.use('/users',createUserRoutes())
+  app.get('/', (req: express.Request, res: express.Response) => {
     res.send('Hello World!')
   })
 
